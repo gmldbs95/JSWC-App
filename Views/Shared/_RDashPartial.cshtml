@@ -1,0 +1,225 @@
+
+@model massage.Models.ViewModel
+<div class="container">
+  <!-- Small boxes (Stat box) -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <ul class="nav nav-tabs card-header-tabs" id="Reception-Dash" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" href="#Appointments" role="tab" aria-controls="Appointments" aria-selected="true">Today's Appointments</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"  href="#NewCustomer" role="tab" aria-controls="NewCustomer" aria-selected="false">New Customer</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#Calendar" role="tab" aria-controls="Calendar" aria-selected="false" id="calendarTabID">Calendar</a>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body text-center">
+           <div class="tab-content mt-3 text-center">
+            <div class="tab-pane active" id="Appointments" role="tabpanel">
+                  @if(Model.AllReservations.Count <=0 ){
+                    <p>No Reservations to Display</p>
+                  }else{
+                    <table class="table table-head-fixed text-nowrap" id="tableId">
+                      <thead class="black white-text">
+                          <tr class="navigateTest">
+                              <th scope="col">Date</th>
+                              <th scope="col">Customer</th>
+                              <th scope="col">Practitioner</th>
+                              <th scope="col">Service</th>
+                              <th scope="col">Room</th>
+                              <th scope="col">Notes</th>
+                              <th scope="col">Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        <tbody>
+                    @{
+                      foreach (Reservation rsv in Model.AllReservations)
+                      {
+                        DateTime startT = DateTime.Today.AddHours(rsv.Timeslot.Hour);
+                        DateTime endT = startT.AddHours(1);
+                        <tr>
+                          <td>@String.Format("{0:htt}", startT) - @String.Format("{0:htt}", endT)</td>
+                          <td>@rsv.Customer.FirstName @rsv.Customer.LastName[0]</td>
+                          <td>@rsv.Practitioner.FirstName @rsv.Practitioner.LastName[0]</td>
+                          <td>@rsv.Service.Name</td>
+                          <td>Room @rsv.Room.RoomId</td>
+                          @if (rsv.Notes == null || rsv.Notes.Length == 0)
+                          {
+                            <td>(no notes)</td>
+                          }
+                          else if (rsv.Notes.Length <= 30) {
+                            <td>@rsv.Notes</td>
+                          }
+                          else {
+                            string shortNotes = "";
+                            for (int i=0; i<=30; i++)
+                            {
+                              shortNotes = shortNotes + rsv.Notes[i];
+                            }
+                            <td>@shortNotes</td>
+                          }
+                          <td>
+                                <div class="row">
+                                  <div class="col">
+                                    <form asp-action="CurrentReservation"  asp-route-id="@rsv.ReservationId" method="post" style="display:inline;">
+                                  <input type="hidden" value="@rsv.ReservationId">
+                                  <input type="submit" value="View">
+                                </form>
+                                <form asp-action="CancelReservation" asp-route-id="@rsv.ReservationId" method="post" style="display:inline;">
+                                  <input type="hidden" value="@rsv.ReservationId">
+                                  <input type="submit" value="Cancel">
+                                </form>
+                                  </div>
+                                </div>
+                                </td>
+                        </tr>
+                      }
+                    }
+                  </tbody>
+                </table>
+                  }
+            </div>
+             
+            <div class="tab-pane" id="NewCustomer" role="tabpanel" aria-labelledby="NewCustomer-tab">
+              <div class="col-sm-9">
+                @{
+                  ViewModel vm = Model;
+                }
+                 <!-- /.NewCustomerForm -->
+                    <!-- form start -->
+                    <form class="form" asp-action="CreateCustomer" method="post">
+                      <div class="card-body">
+                        <div class="form-row mb-2">
+                          <div class="col-sm-4">
+                            <label asp-for="@Model.OneCustomer.FirstName">First Name</label>
+                            <input type="text" asp-for="@Model.OneCustomer.FirstName" class="form-control" placeholder="First Name">
+                            <div class="text-danger small" style="height: 5px;"><span asp-validation-for="@Model.OneCustomer.FirstName"></span></div>
+                          </div>
+                          <div class="col-sm-4">
+                            <label asp-for="@Model.OneCustomer.LastName">Last Name</label>
+                            <input type="text" asp-for="@Model.OneCustomer.LastName" class="form-control" placeholder="Last Name">
+                            <div class="text-danger small" style="height: 5px;"><span asp-validation-for="@Model.OneCustomer.LastName"></span></div>
+                          </div>
+                        </div>
+                        
+                        <div class="col-sm-8">
+                          <label asp-for="@Model.OneCustomer.Email">Email</label>
+                          <input type="email" asp-for="@Model.OneCustomer.Email" class="form-control" placeholder="Email">
+                          <div class="text-danger small" style="height: 5px;"><span asp-validation-for="@Model.OneCustomer.Email"></span></div>
+                        </div>
+
+                        <div class="col-sm-8">
+                          <label asp-for="@Model.OneCustomer.Phone">Phone</label>
+                          <input type="text" asp-for="@Model.OneCustomer.Phone" class="form-control" placeholder="Phone">
+                          <div class="text-danger small" style="height: 5px;"><span asp-validation-for="@Model.OneCustomer.Phone"></span></div>
+                        </div>
+
+                        <div class="col-sm-8">
+                          <label asp-for="@Model.OneCustomer.Address1">Address1</label>
+                          <input type="text" asp-for="@Model.OneCustomer.Address1" class="form-control" placeholder="Address1">
+                          <div class="text-danger small" style="height: 5px;"><span asp-validation-for="@Model.OneCustomer.Address1"></span></div>
+                        </div>
+
+                        <div class="col-sm-8">
+                          <label asp-for="@Model.OneCustomer.Address2">Address2</label>
+                          <input type="text" asp-for="@Model.OneCustomer.Address2" class="form-control" placeholder="eg. Unit Number, Apt Number">
+                        </div>
+
+
+                        <div class="col-sm-8">
+                          <div class="form-row mb-2">
+                            <input type="hidden" name="country" id="countryId" value="US"/>
+                            <div class="col-sm-4">
+                              <label for="stateId">State</label>
+                              <select asp-for="@Model.OneCustomer.State" class="states form-control mb-2" id="stateId">
+                                <option value="">Select State</option>
+                                @* <option selected value="Washington" stateid="WA" >Washington</option> *@
+                              </select>
+                            </div>
+                            <div class="col-sm-4">
+                              <label for="cityId">City</label>
+                              <select asp-for="@Model.OneCustomer.City" class="cities form-control mb-2" id="cityId">
+                                <option value="">Select City</option>
+                              </select>
+                            </div>
+
+                            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+                            <script src="//geodata.solutions/includes/statecity.js"></script>
+                          </div>
+                        </div>
+
+
+                        <div class="col-sm-8">
+                          <div class="form-row mb-2">
+                            <div class="col-sm-4">
+                              <div class="row p-2"><label asp-for="@Model.OneCustomer.Zip">Zipcode</label></div>
+                              <input asp-for="@Model.OneCustomer.Zip" type="text" placeholder="5-digit zip code" pattern="[\d{5}$]{5}" title="Must be 5 digit zipcode">
+                            </div>
+                          </div>
+                        </div>
+
+
+                    <div class="col-sm-8">
+                          <div class="form-row mb-2">
+                            <div class="col-sm-4">
+                            <div class="row p-2"> <label for="insurance">Insurance:</label></div>
+                                    <select class="form-control select" asp-for="@Model.OneCustomer.InsuranceId">
+                                      @foreach (var insurance in Model.AllInsurances)
+                                      {
+                                        <option value="@insurance.InsuranceId">@insurance.Name</option>
+                                      }
+                                    </select>
+                                    <div class="form-group" style="margin-top:10px">
+                                    <a href="newinsurance" class="btn btn-primary">New Insurance</a>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                        <div class="col">
+                          <div class="form-row mb-2">
+                              <label asp-for="@Model.OneCustomer.Notes">Notes</label>
+                              <textarea class="form-control rounded-0" asp-for="@Model.OneCustomer.Notes" rows="3" placeholder="Enter customer notes"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                      <div class="card-footer">
+                        <button type="submit" class="btn btn-info">Submit</button>
+                        <button type="submit" class="btn btn-danger float-right">Cancel</button>
+                      </div>
+                    </form>
+        <!-- /.NewCustomerForm -->
+              </div>  
+              <div class="col-sm-2"></div>
+
+            </div>
+             
+            <div class="tab-pane justify-content-center" id="Calendar" role="tabpanel" aria-labelledby="Calendar-tab">
+              <div class="text-center" style="float: none">
+<<<<<<< Updated upstream
+                <partial name="_RResvCalendar" model="vm"/>
+=======
+                @* <partial name="_RNewCustomerPartial" model="vm"/> *@
+>>>>>>> Stashed changes
+              </div>
+            </div>
+
+          </div> <!-- /.card-body -->
+        </div><!-- /.card-class -->
+      </div><!-- /.cdiv-class-col-col -->
+    </div>
+  </div><!-- /.container-fluid -->
+  
+  <script>
+      $('#Reception-Dash a').on('click', function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+  });
+  </script>

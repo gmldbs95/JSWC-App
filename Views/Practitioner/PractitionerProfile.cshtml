@@ -1,0 +1,236 @@
+@model massage.Models.ViewModel
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <title>Massage</title>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="~/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="~/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="~/plugins/daterangepicker/daterangepicker.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="~/plugins/summernote/summernote-bs4.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <partial name="_NavPartial"/>
+    <!-- /.navbar -->
+
+    @{
+        ViewModel vm = Model;
+        ViewData["Title"] = "Dashboard";
+    }
+    <partial name="_PSidebarPartial" model="vm"/>
+    <div class="content-wrapper">
+        <section class="content">
+                <div class="container-fluid">
+                        <div class="card m-2 p-2">
+                    <div class="row">
+                            <div class="col">
+                                <h1>@Model.OneUser.FirstName Profile</h1>
+                            </div>
+                            <div class="col text-right p-3">
+                                <h4 class="text-primary" class="m-0 text-dark">Schedule for @DateTime.Now.ToString("MMMM dd, yyyy")</h4>
+                            </div>
+                        </div>
+                    </div>
+                            <div class="card ">
+                                    <div class="card-body ">
+                                        
+                                        <form asp-action="togglePracSched" asp-route-id="@Model.OneUser.UserId" asp-controller="Practitioner" method="post">
+                                            <div class="row">
+                                                        <div class="col">
+                                                            <table class="table bg-white">
+                                                                <thead >                  
+                                                                    <tr>
+                                                                        <th>Time</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach(KeyValuePair<string, Dictionary<string,bool>> dayofweek in  @Model.PSDict){
+                                                                        @foreach(KeyValuePair<string,bool> timeofday in  dayofweek.Value){
+                                                                            @if(dayofweek.Key == "Sunday"){
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <input value="@timeofday.Key" class="form-control input-lg bg-secondary text-center">
+                                                                                    </td>
+                                                                                </tr>
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="col">
+                                                            <table class="table bg-white">
+                                                                <thead>                  
+                                                                    <tr>
+                                                                        <th>Sun</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach(KeyValuePair<string, Dictionary<string,bool>> dayofweek in  @Model.PSDict){
+                                                                        @foreach(KeyValuePair<string,bool> timeofday in  dayofweek.Value){
+                                                                            @if(dayofweek.Key == "Sunday"){
+                                                                                <tr>
+                                                                                    <td><input class="form-control input-lg" type="checkbox" asp-for="@Model.PSDict[dayofweek.Key][timeofday.Key]"></td>
+                                                                                </tr>
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                        
+                                    
+                                                        <div class="col">
+                                                            <table class="table bg-white">
+                                                                <thead>                  
+                                                                    <tr>
+                                                                        <th>Mon</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach(KeyValuePair<string, Dictionary<string,bool>> dayofweek in  @Model.PSDict){
+                                                                        @foreach(KeyValuePair<string,bool> timeofday in  dayofweek.Value){
+                                                                            @if(dayofweek.Key == "Monday"){
+                                                                                <tr>
+                                                                                     <td><input class="form-control input-lg" type="checkbox" asp-for="@Model.PSDict[dayofweek.Key][timeofday.Key]"></td>
+                                                                                </tr>
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="col">
+                                                            <table class="table bg-white">
+                                                                <thead>                  
+                                                                    <tr>
+                                                                        <th>Tues</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach(KeyValuePair<string, Dictionary<string,bool>> dayofweek in  @Model.PSDict){
+                                                                        @foreach(KeyValuePair<string,bool> timeofday in  dayofweek.Value){
+                                                                            @if(dayofweek.Key == "Tuesday"){
+                                                                                <tr>
+                                                                                <td><input class="form-control input-lg" type="checkbox" asp-for="@Model.PSDict[dayofweek.Key][timeofday.Key]"></td>
+                                                                                </tr>
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                            
+                                                        <div class="col">
+                                                            <table class="table bg-white">
+                                                                <thead>                  
+                                                                    <tr>
+                                                                        <th>Wed</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach(KeyValuePair<string, Dictionary<string,bool>> dayofweek in  @Model.PSDict){
+                                                                        @foreach(KeyValuePair<string,bool> timeofday in  dayofweek.Value){
+                                                                            @if(dayofweek.Key == "Wednesday"){
+                                                                                <tr>
+                                                                                <td><input class="form-control input-lg" type="checkbox" asp-for="@Model.PSDict[dayofweek.Key][timeofday.Key]"></td>
+
+                                                                                </tr>
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="col">
+                                                            <table class="table bg-white">
+                                                                <thead>                  
+                                                                    <tr>
+                                                                        <th>Thur</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach(KeyValuePair<string, Dictionary<string,bool>> dayofweek in  @Model.PSDict){
+                                                                        @foreach(KeyValuePair<string,bool> timeofday in  dayofweek.Value){
+                                                                            @if(dayofweek.Key == "Thursday"){
+                                                                                <tr>
+                                                                                <td><input class="form-control input-lg" type="checkbox" asp-for="@Model.PSDict[dayofweek.Key][timeofday.Key]"></td>
+                                                                                </tr>
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                        
+                                                        <div class="col">
+                                                            <table class="table bg-white">
+                                                                <thead>                  
+                                                                    <tr>
+                                                                        <th>Fri</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach(KeyValuePair<string, Dictionary<string,bool>> dayofweek in  @Model.PSDict){
+                                                                        @foreach(KeyValuePair<string,bool> timeofday in  dayofweek.Value){
+                                                                            @if(dayofweek.Key == "Friday"){
+                                                                                <tr>
+                                                                                <td><input class="form-control input-lg" type="checkbox" asp-for="@Model.PSDict[dayofweek.Key][timeofday.Key]"></td>
+                                                                                </tr>
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="col">
+                                                            <table class="table bg-white">
+                                                                <thead>                  
+                                                                    <tr>
+                                                                        <th>Sat</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach(KeyValuePair<string, Dictionary<string,bool>> dayofweek in  @Model.PSDict){
+                                                                        @foreach(KeyValuePair<string,bool> timeofday in  dayofweek.Value){
+                                                                            @if(dayofweek.Key == "Saturday"){
+                                                                                <tr>
+                                                                                <td><input class="form-control input-lg" type="checkbox" asp-for="@Model.PSDict[dayofweek.Key][timeofday.Key]"></td>
+                                                                                </tr>
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                            
+                                                </div>
+                                            </div>
+                                            <button>Update</button>
+                                        </form>
+                                    
+                                    </div>
+                            </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </body>
+</html>

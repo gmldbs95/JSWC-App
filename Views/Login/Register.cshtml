@@ -1,0 +1,49 @@
+@model User
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header text-center bg-info text-white">
+                    <h2>Please Register</h2>
+                </div>
+                <div class="card-body">
+                    <form asp-action="submitregister" asp-controller="Login" method="post">
+                        <div class="form-group">
+                            <label asp-for="UserName"></label>
+                            <input class="form-control" asp-for="UserName">
+                            <div class="text-danger small" style="height: 5px;"><span asp-validation-for="UserName"></span></div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="FirstName">First Name</label>
+                            <input class="form-control" asp-for="FirstName">
+                            <div class="text-danger small" style="height: 5px;"><span asp-validation-for="FirstName"></span></div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LastName">Last Name</label>
+                            <input class="form-control" asp-for="LastName">
+                            <div class="text-danger small" style="height: 5px;"><span asp-validation-for="LastName"></span></div>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label asp-for="Password"></label>
+                            <input class="form-control" asp-for="Password">
+                            <div class="text-danger small" style="height: 5px;"><span asp-validation-for="Password"></span></div>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label asp-for="ConfirmPassword"></label>
+                            <input class="form-control" asp-for="ConfirmPassword">
+                            <div class="text-danger small" style="height: 5px;"><span asp-validation-for="ConfirmPassword"></span></div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-5 offset-md-1">
+                                <button type="submit" value="Submit" class="btn btn-primary" style="width: 200px;">Submit Registration</button>
+                            </div>
+                            <div class="col-md-5 offset-md-0">
+                                <a href="/" class="btn btn-danger" style="width: 200px;">Cancel and Login</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model massage.Models.ViewModel
+<p>@ViewBag.User.FirstName</p>
+
+@{
+    foreach (Timeslot t in Model.AllTimeslots)
+    {
+        <p>Timeslot date: @t.Date (@t.Date.DayOfWeek)</p>
+        <p>Timeslot time: @t.Hour</p>
+        foreach (PAvailTime p in t.PsAvail)
+        {
+            <p>Practitioner available: @p.Practitioner.UserName</p>
+        }
+    }
+}

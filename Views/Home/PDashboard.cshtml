@@ -1,0 +1,210 @@
+@model massage.Models.ViewModel
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <title>Massage</title>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="~/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="~/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="~/plugins/daterangepicker/daterangepicker.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="~/plugins/summernote/summernote-bs4.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+
+  <!-- Navbar -->
+  <partial name="_NavPartial">
+  <!-- /.navbar -->
+
+  @{
+    ViewModel vm = Model;
+  }
+  <!-- Main Sidebar Container -->
+  <partial name="_PSidebarPartial" model="@vm"/>
+
+  <!-- Content Wrapper. Contains page content -->
+
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h3 class="m-0 text-dark">Schedule for @DateTime.Now.ToString("MMMM dd, yyyy")</h1>
+          </div><!-- /.col -->
+
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+
+              <div class="card card-cascade wider mb-4 wow fadeIn">
+                <div class="card-body card-body-cascade text-left">
+                    <table class="table bg-white">
+                      <thead>                  
+                        <tr>
+                          @{
+                            string[] RoomList = {"Massage 1", "Massage 2", "Massage 3", "Acupuncture 1", "Acupuncture 2", "Acupuncture 2"};
+                            foreach (var room in RoomList)
+                            {
+                              <th>
+                                  <div class="col text-center">
+                                    <h5>@room</h5>
+                                  </div>
+                              </th>
+                            }
+                          }
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @{
+                          string[] timeSlot = {"9am", "10am","11am", "12pm","1pm", "2pm","3pm", "4pm","5pm"};
+                          for (int i=1; i<timeSlot.Length-1; i++)
+                          {
+                              <tr class="text-center">
+                              @for (int day=0; day < RoomList.Length; day++)
+                              {
+                                      <td>
+                                      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                        <label class="btn btn-outline-success font-weight-light">
+                                          <input type="checkbox" class="form-control" name="timeslot" id="{{day + i}}" autocomplete="off">@timeSlot[i-1] - @timeSlot[i] 
+                                        </label>
+                                      </div>
+                                      </td>
+                              }
+                              </tr>
+                          }
+                        }
+                      </tbody>
+                    </table>
+                              </div>
+          </div>
+        </div>
+
+        <div class="row">
+          
+            <div class="card card-cascade wider mb-4 wow fadeIn">
+              <div class="card-body card-body-cascade text-left">
+                  <h3>Upcoming Appointments</h3>
+                  <div class="card-body table-responsive p-0" style="height: 300px;">
+                      <table class="table table-head-fixed text-nowrap">
+                          <thead class="black white-text">
+                              <tr>
+                                  <th scope="col">Date</th>
+                                  <th scope="col">Time</th>
+                                  <th scope="col">Customer Name</th>
+                                  <th scope="col">Practitioner</th>
+                                  <th scope="col">Room</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                                    <tr>
+                                        <td>Thursday Feb 27, 2020</td>
+                                        <td>10am-11am</td>
+                                        <td>Mary Jane</td>
+                                        <td>Cindy Ball</td>
+                                        <td>Massage 2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Thursday Feb 27, 2020</td>
+                                        <td>10am-11am</td>
+                                        <td>Mary Jane</td>
+                                        <td>Cindy Ball</td>
+                                        <td>Massage 2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Thursday Feb 27, 2020</td>
+                                        <td>10am-11am</td>
+                                        <td>Mary Jane</td>
+                                        <td>Cindy Ball</td>
+                                        <td>Massage 2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Thursday Feb 27, 2020</td>
+                                        <td>10am-11am</td>
+                                        <td>Mary Jane</td>
+                                        <td>Cindy Ball</td>
+                                        <td>Massage 2</td>
+                                    </tr>
+                          </tbody>
+                      </table>
+                  </div>
+                  </div>
+                  </div>
+        </div>
+        <!-- /.row (main row) -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <!-- To the right -->
+    <div class="float-right d-none d-sm-inline">
+      Anything you want
+    </div>
+    <!-- Default to the left -->
+    <strong>Copyright &copy; 2020 <a href="h">massage.com</a>.</strong> All rights reserved.
+  </footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
+<script src="~/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="~/~plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="~/dist/js/adminlte.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="~/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="~/plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="~/plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="~/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="~/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="~/plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="~/plugins/moment/moment.min.js"></script>
+<script src="~/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="~/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="~/plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="~/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+</body>
+</html>

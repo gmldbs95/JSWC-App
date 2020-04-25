@@ -1,0 +1,217 @@
+@model massage.Models.ViewModel
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Calendar</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- fullCalendar -->
+  <link rel="stylesheet" href="~/plugins/fullcalendar/main.min.css">
+  <link rel="stylesheet" href="~/plugins/fullcalendar-daygrid/main.min.css">
+  <link rel="stylesheet" href="~/plugins/fullcalendar-timegrid/main.min.css">
+  <link rel="stylesheet" href="~/plugins/fullcalendar-bootstrap/main.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="~/dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <script>
+      $(document).ready(function(){
+        $("#selectall").click(function(){
+                if(this.checked){
+                    $('.checkboxall').each(function(){
+                        $(".checkboxall").prop('checked', true);
+                    })
+                }else{
+                    $('.checkboxall').each(function(){
+                        $(".checkboxall").prop('checked', false);
+                    })
+                }
+            });
+        });
+    </script>
+</head>
+<body class="hold-transition sidebar-mini">
+<aside class="wrapper">
+  <!-- Navbar -->
+  <partial name="_NavPartial">
+  <!-- Navbar -->
+
+  <!-- Main Sidebar Container -->
+  <partial name="_SidebarPartial">
+  <!-- Main Sidebar Container -->
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Profile</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+            <div class="card card-info">
+              <div class="card-header">
+                <h3 class="card-title">Profile</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form class="form-horizontal">
+                <div class="card-body">
+                  @* <div class="form-group row">
+                    <label for="FirstName" class="col-sm-2 col-form-label">Role</label>
+                    <div class="col-sm-6">
+                      <div class="btn-toolbar btn-group-toggle" data-toggle="buttons">
+                      <label class="btn btn-outline-primary active">
+                        <input type="radio" class="form-control btn-outline-primary" name="role" id="role1" autocomplete="off" checked> Practiontioner
+                      </label>
+                      <label class="btn btn-outline-primary">
+                        <input type="radio" class="form-control btn-outline-primary" name="role" id="role2" autocomplete="off"> Office Staff
+                      </label>
+                      </div>
+                    </div>
+                  </div> *@
+                  @* <div class="row"> *@
+                      <div class="form-group row">
+                          <label for="FirstName" class="col-sm-2 col-form-label">Insurance Accepted:</label>
+                          <div class="col-sm-3">
+                              @{string[] insuranceList = {"Premera", "Blue Cross", "Molina", "Kaiser Permanente", "Swedish", "Providence"};}
+                              <select class="form-control select2" name="insurance" id="insurance">
+                                @foreach (var insurance in insuranceList)
+                                {
+                                  <option value="@insurance">@insurance</option>
+                                }
+                              </select>            
+                          </div>
+                      </div>
+                  @* </div> *@
+                  @* <div id="pscheduler"></div> *@
+                </div>
+        
+                <div class="card-body">
+                  <table class="table table-bordered">
+                    <thead>                  
+                      <tr>
+                        @{
+                          string[] dayList = {"Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"};
+                          foreach (var day in dayList)
+                          {
+                            <th>
+                                <div class="col text-center">
+                                  <h4>@day</h4>
+                                </div>
+                                <div class="col text-center">
+                                  <div class="form-check">
+                                    <input id="selectAll" class="form-check-input" type="checkbox">
+                                  <label class="form-check-label font-weight-light"><p>Select All</p></label>
+                                  </div>
+                              </div>
+                            </th>
+                          }
+                        }
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @{
+                        string[] timeSlot = {"9am", "10am","11am", "12pm","1pm", "2pm","3pm", "4pm","5pm"};
+                        for (int i=1; i<timeSlot.Length-1; i++)
+                        {
+                            <tr class="text-center">
+                            @for (int day=0; day < dayList.Length; day++)
+                            
+                            {
+                                    <td>
+                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                      <label class="btn btn-outline-primary font-weight-light">
+                                        <input type="checkbox" class="form-control checkboxall" name="timeslot" id="{{day + i}}" autocomplete="off">@timeSlot[i-1] - @timeSlot[i] 
+                                      </label>
+                                    </div>
+                                    </td>
+                            }
+                                </tr>
+                        }
+                      }
+                    </tbody>
+                  </table>
+                </div>
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-info">Submit</button>
+                  <button type="submit" class="btn btn-danger float-right">Cancel</button>
+                </div>
+              </form>
+            </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+    </div>
+    <strong>Copyright &copy; 2020 <a href="h">massage.com</a>.</strong> All rights reserved.
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</aside>
+<!-- ./wrapper -->
+
+<script src="~/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- jQuery UI -->
+<script src="~/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- AdminLTE App -->
+<script src="~/dist/js/adminlte.min.js"></script>
+<!-- fullCalendar 2.2.5 -->
+<script src="~/plugins/moment/moment.min.js"></script>
+<script src="~/plugins/fullcalendar/main.min.js"></script>
+<script src="~/plugins/fullcalendar-daygrid/main.min.js"></script>
+<script src="~/plugins/fullcalendar-timegrid/main.min.js"></script>
+<script src="~/plugins/fullcalendar-interaction/main.min.js"></script>
+<script src="~/plugins/fullcalendar-bootstrap/main.min.js"></script>
+
+<!--Practiontioner Scheduler -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('pscheduler');
+  var curr = new Date;
+  var firstday = new Date(curr.setDate(curr.getDate() - curr.getDay()));
+  var lastday = new Date(curr.setDate(curr.getDate() - curr.getDay()+6));
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
+    defaultView: 'timeGridWeek',
+    defaultDate: '2020-02-07',
+    header: {
+      left: 'prev,next today',
+      center: 'title',
+      right: ''
+    },
+      dateClick: function(info) {
+        alert('clicked ' + info.dateStr + ' on resource ' + info.resource.id);
+    },
+    select: function(info) {
+      alert('selected ' + info.startStr + ' to ' + info.endStr + ' on resource ' + info.resource.id);
+    }
+  });
+
+  calendar.render();
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+@model ViewModel
+<body>
+    <h2>Timeslots for @Model.AllTimeslots[0].Date</h2>
+    @if(Model.AllTimeslots.Count <= 0){
+        <p>No Timeslots to Display</p>
+    }else{
+        @foreach(Timeslot timeslot in Model.AllTimeslots){
+            if(timeslot.Hour == 6){
+            <p style="color:green;">@timeslot.Hour</p>
+            }else if(timeslot.Hour == 7) {
+                <p style="color:green;">@timeslot.Hour</p>
+            }else if(timeslot.Hour == 8) {
+                <p style="color:green;">@timeslot.Hour</p>
+            }else{
+                <p style="color:red;">@timeslot.Hour</p>
+            }
+        }
+    }
+</body>
+</html>

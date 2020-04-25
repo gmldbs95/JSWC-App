@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+@model ViewModel
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Testing Dashboard</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <ol>
+                    <li> <a asp-controller="Admin" asp-action="NewService">Create New Service</a></li>
+                    <li><a asp-controller="Admin" asp-action="NewInsurance">Create New Insurance</a></li>
+                    <li><a asp-controller="Admin" asp-action="NewCustomer">Create New Customer</a></li>
+                    <ul>
+                        <li>Associate Insurance</li>
+                    </ul> 
+                    <li><a asp-controller="Admin" asp-action="NewRooms">Create 6 Rooms</a></li>
+                    <li><a asp-controller="Home" asp-action="CheckTimeslots">Generate Timeslots</a></li>
+                    <li><a asp-controller="Receptionist" asp-action="TodaysAvailability">Get Today's Timeslots</a></li>
+                    <li><a asp-controller="Admin" asp-action="NewPSchedule">Create New PSchedule</a></li>
+                </ol>
+            </div>
+            <div class="col-sm-9">
+                <div class="row">
+                    <div class="col-sm-3">
+                    <span style="font-weight: bold;"><p>All Users:</p></span>
+                    <form action="AddTestUsers" controller="Admin" method="get">
+                        <input type="submit" value="Add Test Users">
+                    </form>
+                    @{
+                        @if(Model.AllUsers.Count <= 0 ){
+                            <p>No Users to Display</p>
+                        }
+                        else{
+                            foreach(var user in Model.AllUsers){
+                                if(@user.Role == 0){
+                                    <span style="color:green;"><p>@user.FirstName</p></span> 
+                                }
+                                else if(@user.Role ==1){
+                                    <span style="color:blue;"><a href="/admin/practitioner/@user.UserId"><p>@user.FirstName</p></a></span> 
+                                }
+                                else if (@user.Role ==2){
+                                   <span style="color:red;"><p>@user.FirstName</p></span> 
+                                }
+                                else {
+                                    <p>@user.FirstName Role: @user.Role</p>
+                                }   
+                            }
+                        }
+                    }
+                </div>
+                <div class="col-sm-3">
+                    <span style="font-weight: bold;"><p>All Services:</p></span>
+                    <form action="AddTestServices" controller="Admin" method="get">
+                        <input type="submit" value="Add Test Services">
+                    </form>
+                    @{
+                        @if(Model.AllServices.Count <= 0 ){
+                            <p>No Services to Display</p>
+                        }
+                        else{
+                            foreach(var service in Model.AllServices){
+                                <p>@service.Name</p>
+                            }
+                        }
+                    }
+                </div>
+                <div class="col-sm-3">
+                    <span style="font-weight: bold;"><p>All Customers:</p></span>
+                     <form action="AddTestCustomers" controller="Admin" method="get">
+                        <input type="submit" value="Add Test Customers">
+                    </form>                   
+                        @{
+                            @if(Model.AllCustomers.Count <= 0 ){
+                                <p>No Customers to Display</p>
+                            }
+                            else{
+                                foreach(var customer in Model.AllCustomers){
+                                    <p>@customer.FirstName</p>
+                                }
+                            }
+                        }
+                </div>
+                <div class="col-sm-3">
+                    <span style="font-weight: bold;"><p>All Timeslots:</p></span>
+                    <form action="AddTestTimeslots" controller="Admin" method="get">
+                        <input type="submit" value="Add Test Timeslots">
+                    </form>
+                    @{
+                        @if(Model.AllTimeslots.Count <= 0 ){
+                            <p>No Timeslots to Display</p>
+                        }
+                        else{
+                            foreach(var timeslot in Model.AllTimeslots){
+                                <p>Hour: @timeslot.Hour</p>
+                                <p>Date: @timeslot.Date</p>
+                            }
+                        }
+                    }
+                    </div>
+                </div>
+                @* <div class="col-sm-3">
+                    <span style="font-weight: bold;"><p>All Insurances:</p></span>
+                    <form action="AddTestInsurances" controller="Admin" method="post">
+                        <input type="submit" value="Add Test Insurances">
+                    </form>
+                    @{
+                        @if(Model.AllInsurances.Count <= 0 ){
+                            <p>No Insurance to Display</p>
+                        }
+                        else{
+                            foreach(var insurance in Model.AllInsurances){
+                                <p>@insurance.Name</p>
+                            }
+                        }
+                    }
+                    </div>
+                </div> *@
+            </div>
+        </div>
+    </div>
+</body>
+</html>

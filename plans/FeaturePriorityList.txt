@@ -1,0 +1,38 @@
+Jade Spring Wellness Center
+Apppointment Scheduling Application
+Feature Priority List
+
+P0
+(done)-Login/Registration
+(done)-Have roles (Practitioners, Receptionists, Admins)
+    -To see different pages depending on their role
+-Have customer management (edit, add, view - insurance type, basic information)
+-Have Practitioner Management (personal schedule, insurances accepted)
+    -Adjust generic schedule template (each hour of each day of the week)
+-Be able to schedule appointments, view availabilities, and see upcoming appointments
+    -Add, Cancel appointments.
+    -Appointments should have notes that can be written about them and edited by anyone
+-Allow admin accounts to manually change users' roles
+
+P1
+-Visualization on the calendar of appointments/availability
+    -Adjust whether they are available for given specific timeslots (as opposed to generic days of the week)
+-Implement basic waitlist associated with customers 
+    -(allow them to click "add to waitlist" at appointment creation process)
+        -Create Reservation object based on their current selected filters
+
+
+P2
+-Persistent History of query filters to allow receptionists to "go back" to a previously filtered availibility list
+-Admin schedule approval
+-Admin force edit things
+
+P3
+-Have ability to make a recurring appointment
+-Edit appointments (complicated logic with re-associations)
+-Admin stats
+    -(number of appointments per day/week/etc, per practitioner, number of appointments cancelled, etc etc)
+    -Have a counter on customers that keeps track of number of cancellations etc
+
+P4
+-Actual functional waitlist that automatically fills available slots or allows searching based on the parameters of the waitlist entry

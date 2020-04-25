@@ -1,0 +1,67 @@
+Models
+
+-Restructure Reservation model to include notes and not have required fields
+-Restructure ViewModel to allow for creation/edit Models
+-Create Query static model to allow for common queries to be made from any controller without rewriting code
+    -Queries:
+        (done)-All Customers
+        (done)-One Customer
+            (done)-Create Customer
+            (done)-Edit Customer
+            (done)-Delete Customer
+        (done)-All Insurances
+        (done)-One Insurance
+            (done)-Edit Insurance
+            (done)-Create Insurance
+            (done)-Delete Insurance
+        (done)-All Users
+            (done)-All Practitioners
+            (done)-All Receptionists
+            (done)-One User
+                (done)-Edit User
+                (done)-Delete User
+        (done)-All Practitioner Availabilities (PAvailTime)
+        (done)-One Practitioner's Availibity
+            (done)-Edit A Practitioner's Availibity by list of PATs
+            (done)-Create new PAT with associations
+            (done)-Delete PAT
+        (done)-One Practitioner's PServices
+            (done)-One PService association
+                (done)-Edit a practitioner's services by list of PServices
+                (done)-Create new PService association
+                (done)-Delete PService association
+        (done)-One Practitioner's PInsurances
+            (done)-One PInsurance association
+                (done)-Edit a practitioner's insurances accepted by a list of PInsurances
+                (done)-Create
+                (done)-Delete
+        (done)-One Practitioner's PSchedules (should be 7)
+            (done)-Create new set of 7 if none found
+            (done)-Edit all 7 PSchedules
+            (done)-Approve One Practitioner's PSchedules
+        (done)-All Reservations
+        (done)-All Future Reservations
+        (done)-All Past Reservations
+        (done)-One Reservation
+            (done)-Create
+            (done)-Edit
+            (done)-Delete
+        (done)-All Services
+        (done)-One Service
+            (done)-Create
+            (done)-Edit
+            (done)-Delete
+        (done)-All Timeslots
+        (done)-All Past Timeslots
+        (done)-All Future Timeslots
+        (done)-Current Month's Timeslots
+        (done)-Current Week's Timeslots
+        (done)-Today's Timeslots
+        (done)-One Timeslot
+            (done)-Create
+            (done)-Edit
+            (done)-Delete
+
+
+        -List of something based on what PSchedules have not been approved and need admin attention
+        
